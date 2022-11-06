@@ -88,4 +88,16 @@ class ListDepartmentsTest(APITestCase):
     def test_add_employee_unauthenticated(self):
         request = self.factory.post(reverse('add'), self.employee)
         response = addEmployee(request)
-        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN) """
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN) 
+        
+    def test_employee_search_autheticated(self):
+        self.authenticate()
+        response = self.client.post(reverse('add'), self.employee)
+        #add department
+        response = self.client.get(reverse('search'), {
+            "last_name": self.employee.test,
+            "id": 
+        })
+        self.assertNotEqual(response.status_code, status.HTTP_200_OK)
+        
+        """
