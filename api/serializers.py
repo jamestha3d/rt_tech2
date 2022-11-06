@@ -2,12 +2,15 @@ from rest_framework import serializers
 from employees.models import *
 
 class EmployeeSerializer(serializers.ModelSerializer):
+    department = serializers.StringRelatedField(many=False)
     class Meta:
         model = Employee
         fields = '__all__'
 
 class DepartmentSerializer(serializers.ModelSerializer):
-
+    #replace related string field id with name  
+    chief = serializers.StringRelatedField(many=False)
+    company = serializers.StringRelatedField(many=False)
     #add extra fields to serialized output
     employee_counter = serializers.SerializerMethodField()
     salary_sum = serializers.SerializerMethodField()

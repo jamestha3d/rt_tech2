@@ -1,7 +1,23 @@
-
+from django.contrib import admin
 from django.db import models
 
 # Create your models here.
+
+"""
+Employee:
+- First name
+- Last name
+- Position
+- Salary
+- Age
+- Department
+Department:
+- Name
+- Chief of the department
+- List of employees, related to this department
+Company
+- Consists of departments
+"""
 class Employee(models.Model):
     first_name = models.CharField(max_length=64)
     last_name = models.CharField(max_length=64)
@@ -45,5 +61,9 @@ class Company(models.Model):
     def __str__(self):
         return f"{self.name}"
 
+    @admin.display(description="Departments")
     def departments(self):
         return self.departments.all()
+
+class CompanyAdmin(admin.ModelAdmin):
+    list_display = ('name', 'departments')
