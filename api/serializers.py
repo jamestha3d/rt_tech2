@@ -6,6 +6,8 @@ class EmployeeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Employee
         fields = '__all__'
+    
+    
 
 class DepartmentSerializer(serializers.ModelSerializer):
     #replace related string field id with name  
@@ -14,6 +16,7 @@ class DepartmentSerializer(serializers.ModelSerializer):
     #add extra fields to serialized output
     employee_counter = serializers.SerializerMethodField()
     salary_sum = serializers.SerializerMethodField()
+    list_employees = serializers.SerializerMethodField()
 
     #methods for the extra fields
     def get_employee_counter(self, employee):
@@ -21,6 +24,9 @@ class DepartmentSerializer(serializers.ModelSerializer):
 
     def get_salary_sum(self, employee):
         return employee.salary_sum()
+
+    def get_list_employees(self, employee):
+        return employee.list_employees()
 
     class Meta:
         model = Department

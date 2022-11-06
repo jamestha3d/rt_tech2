@@ -27,15 +27,50 @@ class ListDepartmentsTest(APITestCase):
             "age": 0,
         }
 
+    def authenticate(self):
+        self.client.post(reverse('signup'), {
+            "email": "tester123@user.com",
+            "password": "Password@123",
+            "username": "tester123"
+        })
+
+        response = self.client.post(reverse('login'), {
+            "email": "tester123@user.com",
+            "password": "Password@123"
+        })
+
+        token = response.data['tokens']['access']
+
+        self.client.credentials(HTTP_AUTHORIZATION=f"Bearer {token}")
+
     def test_list_departments(self):
-        view = listDepartments
-        request = self.factory.get(reverse('departments'))
-        response = view(request)
+        response = self.client.get(reverse('departments'))
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_employee_add_not_authenticated(self):
+        response = self.client.post(reverse('add'), self.employee)
+    
+        self.assertNotEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_employee_add_authenticated(self):
+        self.authenticate()
+        response = self.client.post(reverse('add'), self.employee)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_list_employees_unauthenticated(self):
-        request = self.factory.get(self.url)
-        response = self.view(request)
+        response = self.client.get(reverse('employees'))
+        self.assertNotEqual(response.status_code, status.HTTP_200_OK)
+    
+    def test_list_employees_authenticated(self):
+        self.authenticate()
+        response = self.client.get(reverse('employees'))
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    """ 
+    def test_list_employees_unauthenticated(self):
+        #request = self.factory.get(self.url)
+        #response = self.view(request)
+        response = self.client.get(reverse('employees'))
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
     def test_list_employees_authenticated(self):
@@ -53,4 +88,4 @@ class ListDepartmentsTest(APITestCase):
     def test_add_employee_unauthenticated(self):
         request = self.factory.post(reverse('add'), self.employee)
         response = addEmployee(request)
-        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN) """

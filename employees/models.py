@@ -40,7 +40,11 @@ class Department(models.Model):
         return self.members.all().count()
     
     def list_employees(self):
-        return self.members.all()
+        members = self.members.all()
+        names = []
+        for member in members:
+            names.append(f"{member}")
+        return names
 
     def salary_sum(self):
         members = self.members.all()
