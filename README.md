@@ -25,7 +25,7 @@ session operates in a virtual environment set up by `virtualenv`.
 
 Once `pip` has finished downloading the dependencies:
 ```sh
-(env)$ cd project
+(env)$ cd rt_project
 (env)$ python manage.py migrate
 (env)$ python manage.py runserver
 ```
@@ -33,15 +33,15 @@ Once `pip` has finished downloading the dependencies:
 
 And navigate to `http://127.0.0.1:8000/api/`.
 
-## Walkthrough
 
 ## IF USING DOCKER 
-Run
+Right after cloning the repo, run:
 
 ```sh
 $ docker compose up
 ```
 
+navigate to your browser of choice and visit:
 
-localhost:8000
+`localhost:8000/api/`
 

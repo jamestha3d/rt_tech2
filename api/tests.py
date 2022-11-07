@@ -50,7 +50,7 @@ class ListDepartmentsTest(APITestCase):
     def test_employee_add_not_authenticated(self):
         response = self.client.post(reverse('add'), self.employee)
     
-        self.assertNotEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
     def test_employee_add_authenticated(self):
         self.authenticate()
@@ -59,7 +59,7 @@ class ListDepartmentsTest(APITestCase):
 
     def test_list_employees_unauthenticated(self):
         response = self.client.get(reverse('employees'))
-        self.assertNotEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
     
     def test_list_employees_authenticated(self):
         self.authenticate()
