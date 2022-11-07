@@ -33,6 +33,18 @@ Once `pip` has finished downloading the dependencies:
 
 And navigate to `http://127.0.0.1:8000/api/`.
 
+## EDIT DATA
+To create super user stop the server with ^C and run
+```sh
+(env) python manage.py createsuperuser
+```
+
+## SIGN UP
+
+`localhost:8000/auth/signup`
+
+follow the prompt, when done run the server again.
+go to `http://127.0.0.1:8000/admin/`
 
 ## IF USING DOCKER 
 Right after cloning the repo, run:
@@ -45,3 +57,4 @@ navigate to your browser of choice and visit:
 
 `localhost:8000/api/`
 
+also migrate database and create super user.

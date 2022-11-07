@@ -66,6 +66,10 @@ class ListDepartmentsTest(APITestCase):
         response = self.client.get(reverse('employees'))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
+    def test_search_employees(self):
+        pass
+
+    
     """ 
     def test_list_employees_unauthenticated(self):
         #request = self.factory.get(self.url)
