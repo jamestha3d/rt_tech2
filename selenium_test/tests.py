@@ -21,7 +21,7 @@ class AdminLoginTests(LiveServerTestCase):
         password.send_keys('Welcome@12345')
         submit.send_keys(Keys.RETURN)
         time.sleep(5)
-        assert 'log out' in driver.page_source
+        assert 'admin' in driver.page_source
 
 """ class LoginFormTest(LiveServerTestCase):
 
